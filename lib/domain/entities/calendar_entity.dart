@@ -4,8 +4,10 @@ import 'package:rozklad_knu_fit/data/models/calendar_model.dart';
 class CalendarEntity extends Equatable {
   final List<SingleCalendarObject> list;
 
-  const CalendarEntity({required this.list});
-
+  const CalendarEntity({
+    required this.list,
+  });
+/*
   factory CalendarEntity.fromList(List<Map<String, dynamic>> list) {
     List<SingleCalendarObject> listObjects = [];
     for (var element in list) {
@@ -24,7 +26,7 @@ class CalendarEntity extends Equatable {
       );
     }
     return CalendarEntity(list: listObjects);
-  }
+  }*/
 
   @override
   List<Object?> get props => [list];

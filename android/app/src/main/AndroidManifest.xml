@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rozklad_knu_fit">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="rozklad_knu_fit"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

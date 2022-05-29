@@ -17,7 +17,7 @@ class SpecsModel {
   @JsonKey(name: '1 курс ОС магістр')
   final List<String> list5Course;
 
-  factory SpecsModel.fromJson(Map<String, List<String>> json) =>
+  factory SpecsModel.fromJson(Map<String, dynamic> json) =>
       _$SpecsModelFromJson(json);
 
   const SpecsModel(

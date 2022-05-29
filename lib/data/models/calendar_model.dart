@@ -3,10 +3,10 @@ class CalendarModel {
 
   const CalendarModel(this.list);
 
-  factory CalendarModel.fromJson(List<Map<String, dynamic>> json) {
-    Map map = json.asMap();
+  factory CalendarModel.fromJson(List<dynamic> json) {
+    List list = json;
     List<SingleCalendarObject> listObjects = [];
-    map.forEach((key, element) {
+    for (var element in list) {
       listObjects.add(
         SingleCalendarObject(
           title: element['title'] as String,
@@ -15,12 +15,12 @@ class CalendarModel {
           online: element['online'] as bool,
           start: element['start'] as num,
           end: element['end'] as num,
-          backgroundColor: element['backgroundColor'],
-          type: ['type'] as String,
-          url: ['url'] as String,
+          backgroundColor: element['backgroundColor'] as String,
+          type: element['type'],
+          url: element['url'] as String,
         ),
       );
-    });
+    }
     return CalendarModel(listObjects);
   }
 }

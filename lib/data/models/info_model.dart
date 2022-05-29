@@ -11,6 +11,6 @@ class InfoModel {
 
   const InfoModel({required this.date, required this.listTeachers});
 
-  factory InfoModel.fromJson(Map<String, List<String>> json) =>
+  factory InfoModel.fromJson(Map<String, dynamic> json) =>
       _$InfoModelFromJson(json);
 }
