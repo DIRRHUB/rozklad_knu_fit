@@ -12,3 +12,5 @@ class NotFoundFailure extends Failure {}
 class MissingParametersFailure extends Failure {}
 
 class UnknownFailure extends Failure {}
+
+class HiveFailure extends Failure {}

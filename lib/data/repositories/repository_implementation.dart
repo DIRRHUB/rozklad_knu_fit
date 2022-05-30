@@ -12,12 +12,19 @@ class RepositoryImplementation extends Repository {
   final LocalDataSource localDataSource;
   final RemoteDataSource remoteDataSource;
 
-  RepositoryImplementation({required this.localDataSource, required this.remoteDataSource});
+  RepositoryImplementation(
+      {required this.localDataSource, required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, CalendarEntity>> getCalendar(Map<String, String> map) async {
-    if(await localDataSource.isEmpty()){
-      return await remoteDataSource.getCalendar(map);
+  Future<Either<Failure, CalendarEntity>> getCalendar(
+      Map<String, String> map) async {
+    if (await localDataSource.isEmpty()) {
+      var response = await remoteDataSource.getCalendar(map);
+      response.fold(
+        (l) => null,
+        (r) => localDataSource.writeCalendar(r),
+      );
+      return response;
     } else {
       return await localDataSource.getCalendar(map);
     }
@@ -25,8 +32,13 @@ class RepositoryImplementation extends Repository {
 
   @override
   Future<Either<Failure, InfoEntity>> getInfo() async {
-    if(await localDataSource.isEmpty()){
-      return await remoteDataSource.getInfo();
+    if (await localDataSource.isEmpty()) {
+      var response = await remoteDataSource.getInfo();
+      response.fold(
+        (l) => null,
+        (r) => localDataSource.writeInfo(r),
+      );
+      return response;
     } else {
       return await localDataSource.getInfo();
     }
@@ -34,8 +46,13 @@ class RepositoryImplementation extends Repository {
 
   @override
   Future<Either<Failure, SpecsEntity>> getSpecs() async {
-    if(await localDataSource.isEmpty()){
-      return await remoteDataSource.getSpecs();
+    if (await localDataSource.isEmpty()) {
+      var response = await remoteDataSource.getSpecs();
+      response.fold(
+        (l) => null,
+        (r) => localDataSource.writeSpecs(r),
+      );
+      return response;
     } else {
       return await localDataSource.getSpecs();
     }

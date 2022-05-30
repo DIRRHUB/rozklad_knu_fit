@@ -1,13 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:rozklad_knu_fit/data/models/info_model.dart';
-
 import '../../../domain/entities/calendar_entity.dart';
 import '../../../domain/entities/info_entity.dart';
 import '../../../domain/entities/specs_entity.dart';
 import '../../../internal/error/failure.dart';
-import '../../models/calendar_model.dart';
-import '../../models/specs_model.dart';
+import '../../models/remote/calendar_model.dart';
+import '../../models/remote/info_model.dart';
+import '../../models/remote/specs_model.dart';
 import '../datasource.dart';
 
 class RemoteDataSource extends DataSource {

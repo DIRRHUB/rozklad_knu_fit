@@ -1,3 +1,5 @@
+import '../single_calendar_object.dart';
+
 class CalendarModel {
   final List<SingleCalendarObject> list;
 
@@ -23,28 +25,4 @@ class CalendarModel {
     }
     return CalendarModel(listObjects);
   }
-}
-
-class SingleCalendarObject {
-  final String title;
-  final String teacher;
-  final String time;
-  final bool online;
-  final num start;
-  final num end;
-  final String backgroundColor;
-  final String type;
-  final String url;
-
-  SingleCalendarObject({
-    required this.title,
-    required this.teacher,
-    required this.time,
-    required this.online,
-    required this.start,
-    required this.end,
-    required this.backgroundColor,
-    required this.type,
-    required this.url,
-  });
 }

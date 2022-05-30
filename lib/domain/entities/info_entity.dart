@@ -9,15 +9,6 @@ class InfoEntity extends Equatable {
     required this.listTeachers,
   });
 
-/*
-  factory InfoEntity.fromMap(Map<String, dynamic> map) {
-    return InfoEntity(
-      date: map['date'] as num,
-      listTeachers: map['teachers'] as List<String>,
-    );
-  }
-  */
-
   @override
   List<Object?> get props => [date, listTeachers];
 }
