@@ -30,6 +30,10 @@ class RepositoryImplementation extends Repository {
     }
   }
 
+  Future<Either<Failure, CalendarEntity>> getSavedCalendar() async {
+    return await localDataSource.getSavedCalendar();
+  }
+
   @override
   Future<Either<Failure, InfoEntity>> getInfo() async {
     if (await localDataSource.isEmpty()) {

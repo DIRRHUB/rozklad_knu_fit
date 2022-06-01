@@ -56,6 +56,10 @@ class LocalDataSource extends DataSource {
     }
   }
 
+  Future<Either<Failure, CalendarEntity>> getSavedCalendar() async {
+    return getCalendar({});
+  }
+
   void writeInfo(InfoEntity infoEntity) async {
     InfoModel infoModel =
         InfoModel(date: infoEntity.date, listTeachers: infoEntity.listTeachers);
@@ -82,11 +86,11 @@ class LocalDataSource extends DataSource {
   }
 
   Future<bool> isEmpty() async {
+    _box = Hive.box(BoxNames.calendarBox);
+    if (_box.isEmpty) return true;
     _box = Hive.box(BoxNames.infoBox);
     if (_box.isEmpty) return true;
     _box = Hive.box(BoxNames.specsBox);
-    if (_box.isEmpty) return true;
-    _box = Hive.box(BoxNames.calendarBox);
     if (_box.isEmpty) return true;
     return false;
   }
