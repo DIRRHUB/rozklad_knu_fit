@@ -21,14 +21,14 @@ class TablePageWidget extends StatelessWidget {
               scrollDirection: Axis.vertical,
               children: [
                 (matrix[0][5] == 1 || matrix[0][6] == 1)
-                    ? SizedBox()
+                    ? const SizedBox()
                     : _RowTableWidget(row: matrix[0]),
                 _RowTableWidget(row: matrix[1]),
                 _RowTableWidget(row: matrix[2]),
                 _RowTableWidget(row: matrix[3]),
                 _RowTableWidget(row: matrix[4]),
                 (matrix[5][0] == 0)
-                    ? SizedBox()
+                    ? const SizedBox()
                     : _RowTableWidget(row: matrix[5]),
               ],
             ),
@@ -82,25 +82,50 @@ class _OneDayWeek extends StatelessWidget {
   final int date;
   final Color color;
 
+  void onItemTap(int selectedItem, BuildContext context) {
+    if (selectedItem != 0) {
+      context.read<HomeModel>().itemSelected(selectedItem, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (date == 0) {}
+    HomeModel model = context.watch<HomeModel>();
+    final selectedDay = date;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(2.0),
-        child: InkWell(
-          onTap: () {},
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4.0),
-              color: color,
-            ),
-            child: Container(
-              height: 100,
-              child: Center(
-                child: Text(
-                  (date != 0) ? date.toString() : "",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.0),
+            color: color,
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: () => onItemTap(selectedDay, context),
+              child: SizedBox(
+                height: 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      (selectedDay != 0) ? selectedDay.toString() : "",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      (selectedDay != 0)
+                          ? model.daysExistTable[selectedDay - 1]
+                              ? "Пари"
+                              : "Немає"
+                          : "",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -161,10 +186,10 @@ class _OneDayNameWeek extends StatelessWidget {
             borderRadius: BorderRadius.circular(4.0),
             color: color,
           ),
-          child: Center(child: Text(text, style: TableTextStyle()))),
+          child: Center(child: Text(text, style: tableTextStyle()))),
     ));
   }
 
-  TextStyle TableTextStyle() =>
+  TextStyle tableTextStyle() =>
       const TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
 }

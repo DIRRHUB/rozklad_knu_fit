@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:rozklad_knu_fit/data/datasources/local/local_datasource.dart';
@@ -24,62 +25,48 @@ class HomeViewModel {
     return await _repositoryImplementation.localDataSource.isEmpty();
   }
 
-  Future<Map<int, DayObject>> getNewMapTable(Map<String, String> map) async {
-    Either<Failure, CalendarEntity> response =
-        await _repositoryImplementation.getCalendar(map);
+  Future<Map<int, List<DayObject>>> getMapTable(
+      {Map<String, String>? map}) async {
+    Either<Failure, CalendarEntity> response;
+    if (map == null) {
+      response = await _repositoryImplementation.getSavedCalendar();
+    } else {
+      response = await _repositoryImplementation.getCalendar(map);
+    }
     response.fold((l) => null, (r) => calendarEntity = r);
     List<SingleCalendarObject> list = calendarEntity?.list ?? [];
-    Map<int, DayObject> mapResult = {};
+    Map<int, List<DayObject>> mapResult = {};
     setCurrentDate();
-    int currentDay = 1;
     for (var element in list) {
       if (element.start >= _intStartDate && element.end <= _intEndDate) {
         Color typeColor;
+        String typeLesson;
         if (element.backgroundColor == "blue") {
-          typeColor = AppColors.primaryColor;
+          typeColor = AppColors.practiceColor;
+          typeLesson = "Практика";
         } else {
-          typeColor = Colors.yellow;
+          typeColor = AppColors.lectureColor;
+          typeLesson = "Лекція";
         }
+        var date = DateTime.fromMillisecondsSinceEpoch(element.start as int);
+        int day = date.day;
         var dayObject = DayObject(
           name: element.title,
           time: element.time,
-          date: currentDay,
+          date: day,
           colorType: typeColor,
+          link: element.url,
+          teacher: element.teacher,
+          type: typeLesson,
         );
-        mapResult[currentDay] = dayObject;
-        currentDay++;
+        if (mapResult.containsKey(day)) {
+          mapResult[day]!.add(dayObject);
+        } else {
+          mapResult[day] = [dayObject];
+        }
       }
     }
     return mapResult;
-  }
-
-  Future<Map<int, DayObject>> getMapTable() async {
-    Either<Failure, CalendarEntity> response =
-        await _repositoryImplementation.getSavedCalendar();
-    response.fold((l) => null, (r) => calendarEntity = r);
-    List<SingleCalendarObject> list = calendarEntity?.list ?? [];
-    Map<int, DayObject> map = {};
-    setCurrentDate();
-    int currentDay = 1;
-    for (var element in list) {
-      if (element.start >= _intStartDate && element.end <= _intEndDate) {
-        Color typeColor;
-        if (element.backgroundColor == "blue") {
-          typeColor = AppColors.primaryColor;
-        } else {
-          typeColor = Colors.yellow;
-        }
-        var dayObject = DayObject(
-          name: element.title,
-          time: element.time,
-          date: currentDay,
-          colorType: typeColor,
-        );
-        map[currentDay] = dayObject;
-        currentDay++;
-      }
-    }
-    return map;
   }
 
   Future<List<List<int>>> getMatrixTable() async {
@@ -136,6 +123,30 @@ class HomeViewModel {
     return matrix;
   }
 
+  Future<List<bool>> isDayExists(
+      List<List<int>> matrixTable, Map<int, List<DayObject>> mapTable) async {
+    List<bool> daysExistTable = List.filled(31, false);
+    List daysList = List.filled(42, 0);
+    int index = 0;
+    for (var x in matrixTable) {
+      for (var y in x) {
+        daysList[index++] = y;
+      }
+    }
+    index = 0;
+    for (int i = 0; i < daysList.length; i++) {
+      if (daysList[i] != 0) {
+        if (mapTable.containsKey(daysList[i])) {
+          daysExistTable[index] = true;
+        } else {
+          daysExistTable[index] = false;
+        }
+        index++;
+      }
+    }
+    return daysExistTable;
+  }
+
   void setCurrentDate() {
     DateTime now = DateTime.now();
     DateTime dateStart = DateTime(now.year, now.month);
@@ -148,7 +159,5 @@ class HomeViewModel {
     }
     _intEndDate = dateEnd.millisecondsSinceEpoch;
     _intMaxDay = DateTime(now.year, now.month + 1, 0).day;
-    //_intStartDate = 1640995200000;
-    //_intEndDate = 1643673600000;
   }
 }

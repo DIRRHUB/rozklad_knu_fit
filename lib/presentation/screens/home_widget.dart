@@ -51,7 +51,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: SizedBox(
-        //height: 70,
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blue,

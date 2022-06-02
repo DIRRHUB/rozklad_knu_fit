@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rozklad_knu_fit/data/datasources/datasource.dart';
 import 'package:rozklad_knu_fit/data/models/local/calendar_model.dart';
 import 'package:rozklad_knu_fit/data/models/local/specs_model.dart';
-import 'package:rozklad_knu_fit/data/models/single_calendar_object.dart';
 import 'package:rozklad_knu_fit/internal/error/failure.dart';
 import 'package:rozklad_knu_fit/domain/entities/specs_entity.dart';
 import 'package:rozklad_knu_fit/domain/entities/info_entity.dart';
