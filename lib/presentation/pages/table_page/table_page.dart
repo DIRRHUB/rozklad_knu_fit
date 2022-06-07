@@ -1,41 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rozklad_knu_fit/internal/resources/colors.dart';
-import 'package:rozklad_knu_fit/presentation/models/home_model.dart';
+
+import '../../view_models/table_view_model.dart';
 
 class TablePageWidget extends StatelessWidget {
   const TablePageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    HomeModel model = context.watch<HomeModel>();
-    List<List<int>> matrix = model.matrixTable;
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          const SizedBox(height: 10),
-          const _RowNameWeekWidget(),
-          Expanded(
-            child: ListView(
-              scrollDirection: Axis.vertical,
-              children: [
-                (matrix[0][5] == 1 || matrix[0][6] == 1)
-                    ? const SizedBox()
-                    : _RowTableWidget(row: matrix[0]),
-                _RowTableWidget(row: matrix[1]),
-                _RowTableWidget(row: matrix[2]),
-                _RowTableWidget(row: matrix[3]),
-                _RowTableWidget(row: matrix[4]),
-                (matrix[5][0] == 0)
-                    ? const SizedBox()
-                    : _RowTableWidget(row: matrix[5]),
-              ],
+    TableViewModel viewmodel = context.watch<TableViewModel>();
+    List<List<int>> matrix = viewmodel.matrixTable;
+    if (viewmodel.mapTable.isNotEmpty) {
+      return Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            const _RowNameWeekWidget(),
+            Expanded(
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  (matrix[0][5] == 1 || matrix[0][6] == 1)
+                      ? const SizedBox()
+                      : _RowTableWidget(row: matrix[0]),
+                  _RowTableWidget(row: matrix[1]),
+                  _RowTableWidget(row: matrix[2]),
+                  _RowTableWidget(row: matrix[3]),
+                  _RowTableWidget(row: matrix[4]),
+                  (matrix[5][0] == 0)
+                      ? const SizedBox()
+                      : _RowTableWidget(row: matrix[5]),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    } else {
+      return const Center(
+          child: Text(
+        "Оберіть курс та групу",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w400,
+        ),
+      ));
+    }
   }
 }
 
@@ -84,13 +96,13 @@ class _OneDayWeek extends StatelessWidget {
 
   void onItemTap(int selectedItem, BuildContext context) {
     if (selectedItem != 0) {
-      context.read<HomeModel>().itemSelected(selectedItem, context);
+      context.read<TableViewModel>().itemSelected(selectedItem, context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    HomeModel model = context.watch<HomeModel>();
+    TableViewModel model = context.watch<TableViewModel>();
     final selectedDay = date;
     return Expanded(
       child: Padding(

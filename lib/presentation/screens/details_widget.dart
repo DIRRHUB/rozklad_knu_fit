@@ -4,14 +4,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rozklad_knu_fit/data/models/day_object.dart';
 import 'package:rozklad_knu_fit/internal/resources/colors.dart';
-import 'package:rozklad_knu_fit/presentation/models/home_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../view_models/table_view_model.dart';
 
 class DetailsWidget extends StatelessWidget {
   const DetailsWidget({Key? key}) : super(key: key);
 
   void launchURL(String url) async {
-    //url = fixUrl(url);
+    url = fixUrl(url);
     var uri = Uri.parse(url);
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -40,7 +41,7 @@ class DetailsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final item = ModalRoute.of(context)?.settings.arguments;
     List<DayObject> dayObject =
-        context.read<HomeModel>().getItemInformation(item);
+        context.read<TableViewModel>().getItemInformation(item);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,

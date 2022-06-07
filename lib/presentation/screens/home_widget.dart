@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rozklad_knu_fit/presentation/models/home_model.dart';
 import 'package:rozklad_knu_fit/presentation/pages/list_page/list_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/settings_page/settings_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/table_page/table_page.dart';
 import 'package:provider/provider.dart';
+import 'package:rozklad_knu_fit/presentation/view_models/table_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   void initLaunch(BuildContext context) async {
-    if (await context.watch<HomeModel>().isEmptyLocalDataSource) {
+    if (await context.watch<TableViewModel>().isEmptyLocalDataSource) {
       _selectedIndex = 2;
     } else {
       _selectedIndex = 0;
@@ -38,6 +38,9 @@ class _HomeWidgetState extends State<HomeWidget> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        context.read<TableViewModel>().initMapTable();
+      }
     });
   }
 

@@ -13,7 +13,7 @@ class GetCalendarUseCase extends UseCase<CalendarEntity, Params> {
 
   @override
   Future<Either<Failure, CalendarEntity>> call(Params params) async {
-    return repository.getCalendar(params.map);
+    return repository.getCalendar(map: params.map);
   }
 }
 

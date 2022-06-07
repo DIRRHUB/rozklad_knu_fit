@@ -17,21 +17,18 @@ class RepositoryImplementation extends Repository {
 
   @override
   Future<Either<Failure, CalendarEntity>> getCalendar(
-      Map<String, String> map) async {
-    if (await localDataSource.isEmpty()) {
+      {Map<String, String>? map}) async {
+    if (map == null) {
+      return await localDataSource.getSavedCalendar();
+    } else {
+      await localDataSource.getSavedCalendar();
       var response = await remoteDataSource.getCalendar(map);
       response.fold(
         (l) => null,
         (r) => localDataSource.writeCalendar(r),
       );
       return response;
-    } else {
-      return await localDataSource.getCalendar(map);
     }
-  }
-
-  Future<Either<Failure, CalendarEntity>> getSavedCalendar() async {
-    return await localDataSource.getSavedCalendar();
   }
 
   @override

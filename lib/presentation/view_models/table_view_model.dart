@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rozklad_knu_fit/internal/navigation/navigation_routes.dart';
-import 'package:rozklad_knu_fit/presentation/view_models/home_view_model.dart';
-
 import '../../data/models/day_object.dart';
+import '../../internal/resources/colors.dart';
+import '../model/model.dart';
 
-class HomeModel extends ChangeNotifier {
-  final HomeViewModel _viewModel = HomeViewModel();
+class TableViewModel extends ChangeNotifier {
+  final Model _model = Model();
   late Future<bool> _isEmptyLocalDataSource;
   Map<int, List<DayObject>> mapTable = {};
   List<List<int>> matrixTable =
@@ -14,27 +15,21 @@ class HomeModel extends ChangeNotifier {
 
   get isEmptyLocalDataSource => _isEmptyLocalDataSource;
 
-  HomeModel() {
+  TableViewModel() {
     isEmpty();
     initMapTable();
+    notifyListeners();
   }
 
   void initMapTable() async {
-    mapTable = await _viewModel.getMapTable();
-    matrixTable = await _viewModel.getMatrixTable();
-    await isDayExists();
+    mapTable = await _model.getMapTable();
+    matrixTable = await _model.getMatrixTable();
+    await isDaysExists();
     notifyListeners();
   }
 
-  void initNewMapTable(Map<String, String> map) async {
-    mapTable = await _viewModel.getMapTable(map: map);
-    matrixTable = await _viewModel.getMatrixTable();
-    await isDayExists();
-    notifyListeners();
-  }
-
-  void isEmpty() async {
-    _isEmptyLocalDataSource = _viewModel.isEmpty();
+  void isEmpty() {
+    _isEmptyLocalDataSource = _model.isEmpty();
     notifyListeners();
   }
 
@@ -42,15 +37,24 @@ class HomeModel extends ChangeNotifier {
     if (mapTable.containsKey(item)) {
       Navigator.of(context)
           .pushNamed(NavigationRoutes.details, arguments: item);
-    } else {}
+    } else {
+      Fluttertoast.showToast(
+          msg: "Пар немає",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: AppColors.primaryColor,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
   List<DayObject> getItemInformation(item) {
     return mapTable[item]!;
   }
 
-  Future<void> isDayExists() async {
-    daysExistTable = await _viewModel.isDayExists(matrixTable, mapTable);
+  Future<void> isDaysExists() async {
+    daysExistTable = await _model.isDayExists(matrixTable, mapTable);
     notifyListeners();
   }
 }

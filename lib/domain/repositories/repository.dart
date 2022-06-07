@@ -7,5 +7,6 @@ import '../../internal/error/failure.dart';
 abstract class Repository {
   Future<Either<Failure, SpecsEntity>> getSpecs();
   Future<Either<Failure, InfoEntity>> getInfo();
-  Future<Either<Failure, CalendarEntity>> getCalendar(Map<String, String> map);
+  Future<Either<Failure, CalendarEntity>> getCalendar(
+      {Map<String, String>? map});
 }

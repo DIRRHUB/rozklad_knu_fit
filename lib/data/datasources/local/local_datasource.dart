@@ -86,8 +86,8 @@ class LocalDataSource extends DataSource {
   Future<bool> isEmpty() async {
     _box = Hive.box(BoxNames.calendarBox);
     if (_box.isEmpty) return true;
-    _box = Hive.box(BoxNames.infoBox);
-    if (_box.isEmpty) return true;
+    /*_box = Hive.box(BoxNames.infoBox);
+    if (_box.isEmpty) return true;*/
     _box = Hive.box(BoxNames.specsBox);
     if (_box.isEmpty) return true;
     return false;

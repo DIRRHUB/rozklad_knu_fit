@@ -20,12 +20,12 @@ class SingleCalendarObjectAdapter extends TypeAdapter<SingleCalendarObject> {
       title: fields[0] as String,
       teacher: fields[1] as String,
       time: fields[2] as String,
-      online: fields[3] as bool,
+      online: fields[3] as bool?,
       start: fields[4] as num,
       end: fields[5] as num,
       backgroundColor: fields[6] as String,
       type: fields[7] as String,
-      url: fields[8] as String,
+      url: fields[8] as String?,
     );
   }
 

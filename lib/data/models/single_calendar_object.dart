@@ -11,7 +11,7 @@ class SingleCalendarObject {
   @HiveField(2)
   final String time;
   @HiveField(3)
-  final bool online;
+  final bool? online;
   @HiveField(4)
   final num start;
   @HiveField(5)
@@ -21,17 +21,17 @@ class SingleCalendarObject {
   @HiveField(7)
   final String type;
   @HiveField(8)
-  final String url;
+  final String? url;
 
   SingleCalendarObject({
     required this.title,
     required this.teacher,
     required this.time,
-    required this.online,
+    this.online = false,
     required this.start,
     required this.end,
     required this.backgroundColor,
     required this.type,
-    required this.url,
+    this.url = "",
   });
 }

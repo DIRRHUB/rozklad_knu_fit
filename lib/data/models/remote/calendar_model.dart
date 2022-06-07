@@ -14,12 +14,12 @@ class CalendarModel {
           title: element['title'] as String,
           teacher: element['teacher'] as String,
           time: element['_time'] as String,
-          online: element['online'] as bool,
+          online: element['online'] as bool?,
           start: element['start'] as num,
           end: element['end'] as num,
           backgroundColor: element['backgroundColor'] as String,
-          type: element['type'],
-          url: element['url'] as String,
+          type: element['type'] as String,
+          url: element['url'] as String?,
         ),
       );
     }
