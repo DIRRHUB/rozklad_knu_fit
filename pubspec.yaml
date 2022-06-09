@@ -25,6 +25,7 @@ dependencies:
   fluttertoast: ^8.0.9
   flutter_expanded_tile: ^0.3.6
   connectivity_plus: ^2.0.2
+  flutter_native_splash: ^2.2.3
 
 
 dev_dependencies:

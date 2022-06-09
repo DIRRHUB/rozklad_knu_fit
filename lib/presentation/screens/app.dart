@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<TableViewModel>(create: (_) => TableViewModel()),
         ChangeNotifierProvider<SettingsViewModel>(
-            create: (_) => SettingsViewModel()),
+            create: (_) => SettingsViewModel())
       ],
       child: MaterialApp(
         title: 'Розклад',

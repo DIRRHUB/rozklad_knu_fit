@@ -4,7 +4,6 @@ import 'package:rozklad_knu_fit/domain/entities/calendar_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:rozklad_knu_fit/domain/repositories/repository.dart';
 import 'package:rozklad_knu_fit/internal/error/failure.dart';
-
 import '../datasources/local/local_datasource.dart';
 import '../datasources/remote/remote_datasourse.dart';
 
@@ -21,7 +20,6 @@ class RepositoryImplementation extends Repository {
     if (map == null) {
       return await localDataSource.getSavedCalendar();
     } else {
-      await localDataSource.getSavedCalendar();
       var response = await remoteDataSource.getCalendar(map);
       response.fold(
         (l) => null,

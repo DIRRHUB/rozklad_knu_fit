@@ -9,12 +9,12 @@ class SpecsEntity extends Equatable {
   final List<String> list5Course;
 
   const SpecsEntity({
-    required this.listTeachers,
-    required this.list1Course,
-    required this.list2Course,
-    required this.list3Course,
-    required this.list4Course,
-    required this.list5Course,
+    this.listTeachers = const [],
+    this.list1Course = const [],
+    this.list2Course = const [],
+    this.list3Course = const [],
+    this.list4Course = const [],
+    this.list5Course = const [],
   });
 
   @override

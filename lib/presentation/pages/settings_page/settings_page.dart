@@ -26,18 +26,16 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     });
   }
 
-  void onPressedUpdateButton(SettingsViewModel viewModel) {
-    viewModel.initSpecs();
-  }
-
   @override
   Widget build(BuildContext context) {
+    //проверка интернета
     if (_source.keys.toList()[0] == ConnectivityResult.mobile ||
         _source.keys.toList()[0] == ConnectivityResult.wifi) {
       return Expanded(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ListView(
+            //фича з listview, треба фикс
             children: const [
               _CourseMenuWidget(),
               SizedBox(height: 5),
@@ -185,10 +183,15 @@ class _SaveButtonWidget extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          "Зберегти",
-          style: textStyle(),
-        ),
+        child: (model.loadingStatus == false)
+            ? Text(
+                "Зберегти",
+                style: textStyle(),
+              )
+            : const CircularProgressIndicator(
+                strokeWidth: 3,
+                color: Colors.white,
+              ),
       ),
     );
   }
