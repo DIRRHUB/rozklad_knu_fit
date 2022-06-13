@@ -20,7 +20,7 @@ class TableViewModel extends ChangeNotifier {
   Map<int, List<DayObject>> _mapTable = {};
   List<List<int>> _matrixTable =
       List.generate(6, (i) => List.filled(7, 0), growable: false);
-  List<bool> daysExistTable = List.filled(31, false);
+  List<bool> daysExistTable = List.filled(32, false);
   late int _intStartDate;
   late int _intEndDate;
   late int _intMaxDay;
@@ -68,7 +68,7 @@ class TableViewModel extends ChangeNotifier {
           var dayObject = DayObject(
             name: element.title,
             time: element.time,
-            date: day,
+            date: day.toString(),
             colorType: typeColor,
             link: element.url,
             teacher: element.teacher,
@@ -195,6 +195,7 @@ class TableViewModel extends ChangeNotifier {
           daysExistTable[index] = false;
         }
         index++;
+        if (index == 31) return;
       }
     }
     notifyListeners();

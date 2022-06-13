@@ -3,6 +3,7 @@ import 'package:rozklad_knu_fit/presentation/pages/list_page/list_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/settings_page/settings_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/table_page/table_page.dart';
 import 'package:provider/provider.dart';
+import 'package:rozklad_knu_fit/presentation/view_models/list_view_model.dart';
 import 'package:rozklad_knu_fit/presentation/view_models/table_view_model.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -40,6 +41,8 @@ class _HomeWidgetState extends State<HomeWidget> {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         context.read<TableViewModel>().initMapTable();
+      } else if (_selectedIndex == 1) {
+        context.read<ListViewModel>().initMapList();
       }
     });
   }

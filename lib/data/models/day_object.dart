@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DayObject {
   final String? name;
   final String? time;
-  final int? date;
+  final String? date;
   final Color colorType;
   final String? link;
   final String? teacher;

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rozklad_knu_fit/internal/navigation/navigation_routes.dart';
 import 'package:rozklad_knu_fit/presentation/screens/details_widget.dart';
 import 'package:rozklad_knu_fit/presentation/screens/home_widget.dart';
+import 'package:rozklad_knu_fit/presentation/view_models/list_view_model.dart';
 import '../view_models/settings_view_model.dart';
 import '../view_models/table_view_model.dart';
 
@@ -14,8 +15,9 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TableViewModel>(create: (_) => TableViewModel()),
+        ChangeNotifierProvider<ListViewModel>(create: (_) => ListViewModel()),
         ChangeNotifierProvider<SettingsViewModel>(
-            create: (_) => SettingsViewModel())
+            create: (_) => SettingsViewModel()),
       ],
       child: MaterialApp(
         title: 'Розклад',

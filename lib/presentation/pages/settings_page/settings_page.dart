@@ -31,19 +31,17 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     //проверка интернета
     if (_source.keys.toList()[0] == ConnectivityResult.mobile ||
         _source.keys.toList()[0] == ConnectivityResult.wifi) {
-      return Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            //фича з listview, треба фикс
-            children: const [
-              _CourseMenuWidget(),
-              SizedBox(height: 5),
-              _GroupMenuWidget(),
-              SizedBox(height: 5),
-              _SaveButtonWidget(),
-            ],
-          ),
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          //фича з listview, треба фикс
+          children: const [
+            _CourseMenuWidget(),
+            SizedBox(height: 5),
+            _GroupMenuWidget(),
+            SizedBox(height: 5),
+            _SaveButtonWidget(),
+          ],
         ),
       );
     } else {

@@ -124,13 +124,15 @@ class _OneDayWeek extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      (selectedDay != 0) ? selectedDay.toString() : "",
+                      (selectedDay != 0 && selectedDay <= 31)
+                          ? selectedDay.toString()
+                          : "",
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      (selectedDay != 0)
+                      (selectedDay != 0 && selectedDay <= 31)
                           ? model.daysExistTable[selectedDay - 1]
                               ? "Пари"
                               : "Немає"

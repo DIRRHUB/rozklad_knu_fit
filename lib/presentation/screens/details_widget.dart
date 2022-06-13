@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rozklad_knu_fit/data/models/day_object.dart';
+import 'package:rozklad_knu_fit/internal/launcher_url.dart';
 import 'package:rozklad_knu_fit/internal/resources/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,32 +11,6 @@ import '../view_models/table_view_model.dart';
 
 class DetailsWidget extends StatelessWidget {
   const DetailsWidget({Key? key}) : super(key: key);
-
-  void launchURL(String url) async {
-    url = fixUrl(url);
-    var uri = Uri.parse(url);
-    try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      FlutterClipboard.copy(url);
-      Fluttertoast.showToast(
-          msg: "Посилання скопійоване",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: AppColors.primaryColor,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
-
-  String fixUrl(String url) {
-    //WRONG TYPES OF URL
-    if (url.contains("meet.google.com")) {
-      url = "http://$url";
-    }
-    return url;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +35,6 @@ class DetailsWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4.0),
                           border: Border.all(
-                            //color: AppColors.primaryColor,
                             width: 1,
                           ),
                         ),
@@ -69,7 +43,8 @@ class DetailsWidget extends StatelessWidget {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(4),
                             splashColor: AppColors.primaryColor,
-                            onTap: () => launchURL(dayObject[index].link ?? ""),
+                            onTap: () =>
+                                LauncherURL.launch(dayObject[index].link ?? ""),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
