@@ -107,7 +107,7 @@ class SettingsViewModel extends ChangeNotifier {
         "start": _startCalendarTime,
         "end": _endCalendarTime
       };
-      var response = await _repository.getCalendar(map: mapRequest);
+      final response = await _repository.getCalendar(map: mapRequest);
       response.fold(
         (l) => {
           Fluttertoast.showToast(
@@ -145,9 +145,8 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void evaluateCalendarTime() {
-    DateTime now = DateTime.now();
-    int currentMonth = now.month;
-    if (currentMonth >= 9) {
+    final now = DateTime.now();
+    if (now.month >= 9) {
       _startCalendarTime = "${now.year}-09-01T00:00:00+01:00";
       _endCalendarTime = "${now.year}-12-31T00:00:00+01:00";
     } else {

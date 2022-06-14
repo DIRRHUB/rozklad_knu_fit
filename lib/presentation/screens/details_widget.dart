@@ -1,12 +1,8 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:rozklad_knu_fit/data/models/day_object.dart';
 import 'package:rozklad_knu_fit/internal/launcher_url.dart';
 import 'package:rozklad_knu_fit/internal/resources/colors.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../view_models/table_view_model.dart';
 
 class DetailsWidget extends StatelessWidget {
@@ -15,7 +11,7 @@ class DetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final item = ModalRoute.of(context)?.settings.arguments;
-    List<DayObject> dayObject =
+    final List<DayObject> dayObject =
         context.read<TableViewModel>().getItemInformation(item);
     return Scaffold(
       appBar: AppBar(

@@ -7,7 +7,6 @@ import '../../data/models/single_calendar_object.dart';
 import '../../data/repositories/repository_implementation.dart';
 import '../../domain/entities/calendar_entity.dart';
 import '../../internal/error/failure.dart';
-import '../../internal/launcher_url.dart';
 import '../../internal/resources/colors.dart';
 
 class ListViewModel extends ChangeNotifier {
@@ -30,12 +29,12 @@ class ListViewModel extends ChangeNotifier {
   }
 
   Future<List<List<DayObject>>> getList() async {
-    Either<Failure, CalendarEntity> response;
+    final Either<Failure, CalendarEntity> response;
     response = await _repository.getCalendar();
     response.fold((l) {}, (r) => _calendarEntity = r);
-    List<SingleCalendarObject> list = _calendarEntity.list;
-    Map<String, List<DayObject>> map = {};
-    List<List<DayObject>> listResult = [];
+    final List<SingleCalendarObject> list = _calendarEntity.list;
+    final Map<String, List<DayObject>> map = {};
+    final List<List<DayObject>> listResult = [];
 
     if (list.isNotEmpty) {
       list.sort((a, b) {
@@ -48,8 +47,8 @@ class ListViewModel extends ChangeNotifier {
         }
       });
       for (int i = 0; i < list.length; i++) {
-        Color typeColor;
-        String typeLesson;
+        final Color typeColor;
+        final String typeLesson;
         if (list[i].backgroundColor == "blue") {
           typeColor = AppColors.practiceColor;
           typeLesson = "Практика";

@@ -9,8 +9,8 @@ class TablePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TableViewModel viewmodel = context.watch<TableViewModel>();
-    List<List<int>> matrix = viewmodel.matrixTable;
+    final viewmodel = context.watch<TableViewModel>();
+    final List<List<int>> matrix = viewmodel.matrixTable;
     if (viewmodel.mapTable.isNotEmpty) {
       return Container(
         color: Colors.white,

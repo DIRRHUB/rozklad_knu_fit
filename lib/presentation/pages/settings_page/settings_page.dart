@@ -28,22 +28,30 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //проверка интернета
+    final viewmodel = context.watch<SettingsViewModel>();
     if (_source.keys.toList()[0] == ConnectivityResult.mobile ||
         _source.keys.toList()[0] == ConnectivityResult.wifi) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          //фича з listview, треба фикс
-          children: const [
-            _CourseMenuWidget(),
-            SizedBox(height: 5),
-            _GroupMenuWidget(),
-            SizedBox(height: 5),
-            _SaveButtonWidget(),
-          ],
-        ),
-      );
+      if (viewmodel.courseList.isNotEmpty) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: const [
+              _CourseMenuWidget(),
+              SizedBox(height: 5),
+              _GroupMenuWidget(),
+              SizedBox(height: 5),
+              _SaveButtonWidget(),
+            ],
+          ),
+        );
+      } else {
+        return const Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 3,
+            color: Colors.white,
+          ),
+        );
+      }
     } else {
       return const Center(
           child: Text(

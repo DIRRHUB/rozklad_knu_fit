@@ -20,7 +20,7 @@ class TableViewModel extends ChangeNotifier {
   Map<int, List<DayObject>> _mapTable = {};
   List<List<int>> _matrixTable =
       List.generate(6, (i) => List.filled(7, 0), growable: false);
-  List<bool> daysExistTable = List.filled(32, false);
+  final List<bool> daysExistTable = List.filled(32, false);
   late int _intStartDate;
   late int _intEndDate;
   late int _intMaxDay;
@@ -44,18 +44,18 @@ class TableViewModel extends ChangeNotifier {
   }
 
   Future<Map<int, List<DayObject>>> getMapTable() async {
-    Either<Failure, CalendarEntity> response;
+    final Either<Failure, CalendarEntity> response;
     response = await _repository.getCalendar();
     response.fold((l) {}, (r) => _calendarEntity = r);
 
-    List<SingleCalendarObject> list = _calendarEntity.list;
-    Map<int, List<DayObject>> mapResult = {};
+    final List<SingleCalendarObject> list = _calendarEntity.list;
+    final Map<int, List<DayObject>> mapResult = {};
     setCurrentDate();
     if (list.isNotEmpty) {
       for (var element in list) {
         if (element.start >= _intStartDate && element.end <= _intEndDate) {
-          Color typeColor;
-          String typeLesson;
+          final Color typeColor;
+          final String typeLesson;
           if (element.backgroundColor == "blue") {
             typeColor = AppColors.practiceColor;
             typeLesson = "Практика";
@@ -140,9 +140,9 @@ class TableViewModel extends ChangeNotifier {
   }
 
   void setCurrentDate() {
-    DateTime now = DateTime.now();
-    DateTime dateStart = DateTime(now.year, now.month);
-    DateTime dateEnd;
+    final DateTime now = DateTime.now();
+    final DateTime dateStart = DateTime(now.year, now.month);
+    final DateTime dateEnd;
     _intStartDate = dateStart.millisecondsSinceEpoch;
     if (now.month != 12) {
       dateEnd = DateTime(now.year, now.month + 1);

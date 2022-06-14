@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rozklad_knu_fit/internal/resources/colors.dart';
 import 'package:rozklad_knu_fit/presentation/pages/list_page/list_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/settings_page/settings_page.dart';
 import 'package:rozklad_knu_fit/presentation/pages/table_page/table_page.dart';
@@ -59,19 +60,19 @@ class _HomeWidgetState extends State<HomeWidget> {
       bottomNavigationBar: SizedBox(
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: AppColors.primaryColor,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.table_chart),
-              label: 'Table',
+              label: 'Таблиця',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.list),
-              label: 'List',
+              label: 'Список',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Settings',
+              label: 'Налаштування',
             ),
           ],
           currentIndex: _selectedIndex,
