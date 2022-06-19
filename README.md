@@ -1,4 +1,4 @@
-Schedule for FIT KNU\
+Schedule for FIT KNU
 
 Table screen: 
 ![Alt text](https://github.com/DIRRHUB/rozklad_knu_fit/blob/master/screenshots/table.jpg)
